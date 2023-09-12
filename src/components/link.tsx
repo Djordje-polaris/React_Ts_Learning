@@ -1,13 +1,12 @@
 import React, { ReactNode } from 'react'
 
-type LinkProps = {
+interface LinkProps extends React.ComponentProps<"a">  {
 children?: ReactNode;
-color?: string;
 }
 
-const Link:React.FC<LinkProps> = ({children,color}) => {
+const Link:React.FC<LinkProps> = ({children,...props}) => {
   return (
-    <a style={{color:color}}>{children}</a>
+    <a {...props}>{children}</a>
   )
 }
 

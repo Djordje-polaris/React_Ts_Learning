@@ -1,10 +1,9 @@
-import { useState } from "react";
-
 type DateTimePickerProps = {
   showDatePicker: boolean;
   setShowDatePicker: React.Dispatch<React.SetStateAction<boolean>>;
   onChange: (inputDate: string) => void;
   value: string;
+  required: boolean;
 };
 
 const DateTimePicker: React.FC<DateTimePickerProps> = ({
@@ -13,21 +12,22 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
   setShowDatePicker,
   onChange,
 }) => {
-  const className = "bg-white";
-
   return (
     <>
       {showDatePicker ? (
         <input
           value={value}
-          className={className}
+          className="bg-gray-300 text-center w-60 border-black border-solid border-1"
           onChange={(event) => {
             onChange(event.target.value);
           }}
           type="date"
         ></input>
       ) : (
-        <button className={className} onClick={() => setShowDatePicker(true)}>
+        <button
+          className="bg-gray-300 align-middle text-sm w-60 border-solid border-black"
+          onClick={() => setShowDatePicker(true)}
+        >
           Date Time Picker
         </button>
       )}

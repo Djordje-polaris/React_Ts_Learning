@@ -1,7 +1,14 @@
-// import Button from "../components/button";
-import { ChangeEvent, SetStateAction, useState } from "react";
+import { useState } from "react";
 import Link from "../components/link";
 import DateTimePicker from "../components/dateTimePicker";
+import Task from "../components/task";
+import dayjs from "dayjs";
+
+type task = {
+  taskName: string;
+  taskDay: number;
+  taskMonth: string;
+};
 
 const Homepage = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -10,21 +17,32 @@ const Homepage = () => {
 
   const [inputDate, setInputDate] = useState("");
 
+  const [taskArray, setTaskArray] = useState<task[]>([]);
+
   const handleDateChange = (inputDate: string) => {
     setInputDate(inputDate);
-    alert(inputDate);
   };
 
   const handleAddButtonClick = () => {
-    alert(inputDate + " " + inputText);
+    if (
+      taskArray.length === 0 ||
+      taskArray.findIndex((task) => task.taskName === inputText) === -1
+    ) {
+      setTaskArray((prevState) => {
+        return [
+          ...prevState,
+          {
+            taskDay: dayjs(inputDate).day(),
+            taskMonth: dayjs(inputDate).month().toString(),
+            taskName: inputText,
+          },
+        ];
+      });
+    }
+
     setInputDate("");
     setInputText("");
     setShowDatePicker(false);
-  };
-
-  const alertText = () => {
-    // alert(inputText);
-    setInputText("");
   };
 
   return (
@@ -45,47 +63,47 @@ const Homepage = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-evenly">
+      <div className="flex flex-col justify-evenly mt-8 mb-8">
         <div>
-          <div className="bg-white max-w-4xl mx-auto flex flex-col rounded-md ">
-            <input
-              value={inputText}
+          <div className="bg-white max-w-4xl mx-auto flex flex-col justify-between rounded-md p-8 align-text-top h-60">
+            <textarea
+              required={true}
+              className="h-24 p-4 border-2 rounded-md whitespace-pre-line"
+              value={inputText} //Two-way binding
               onChange={(event) => {
                 setInputText(event.target.value);
               }}
-              type="textfield"
+              aria-rowspan={3}
               placeholder="Input text here.."
-            ></input>
+            ></textarea>
             <div className="flex justify-between">
               <DateTimePicker
-                value={inputDate}
+                value={inputDate} //Two-way binding
                 onChange={handleDateChange}
                 showDatePicker={showDatePicker}
                 setShowDatePicker={setShowDatePicker}
+                required={true}
               ></DateTimePicker>
               <button
                 onClick={handleAddButtonClick}
-                className="bg-purple-600 rounded-md text-white"
+                className="bg-purple-600 rounded-md text-white w-20 h-10 font-bold uppercase "
               >
                 Add
               </button>
             </div>
           </div>
         </div>
-        <div>
-          <div>
-            <input
-              value={inputText}
-              onChange={(event) => {
-                setInputText(event.target.value);
-              }}
-              type="text"
-            ></input>
-            <button className="bg-white" onClick={alertText}>
-              Dugme
-            </button>
-          </div>
-        </div>
+      </div>
+      <div className="bg-white max-w-4xl mx-auto flex flex-col justify-between rounded-md p-8 align-text-top h-60 text-center">
+        <h1 className="text-2xl font-semibold"> Tasks</h1>
+        {taskArray.map((task) => (
+          <Task
+            key={task.taskName}
+            taskDay={task.taskDay}
+            taskMonth={task.taskMonth}
+            taskName={task.taskName}
+          />
+        ))}
       </div>
     </>
   );
