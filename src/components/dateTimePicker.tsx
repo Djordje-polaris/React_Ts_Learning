@@ -3,7 +3,6 @@ type DateTimePickerProps = {
   setShowDatePicker: React.Dispatch<React.SetStateAction<boolean>>;
   onChange: (inputDate: string) => void;
   value: string;
-  required: boolean;
 };
 
 const DateTimePicker: React.FC<DateTimePickerProps> = ({
