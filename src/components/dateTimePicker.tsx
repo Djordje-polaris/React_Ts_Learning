@@ -16,7 +16,7 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({
       {showDatePicker ? (
         <input
           value={value}
-          className="bg-gray-300 text-center w-60 border-black border-solid border-1"
+          className="bg-gray-300 text-center w-60 border-black border-solid border-1 cursor-pointer"
           onChange={(event) => {
             onChange(event.target.value);
           }}

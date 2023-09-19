@@ -10,10 +10,10 @@ const Modal: React.FC<ModalProps> = ({ modalShow, setModalShow }) => {
     <div
       className={`${
         modalShow ? "visible" : "hidden"
-      }   w-screen h-screen absolute flex justify-center items-center bg-black bg-opacity-25 p-0`}
+      }  w-full h-full z-10 absolute flex justify-center items-center bg-black bg-opacity-25 p-0`}
     >
-      <div className="bg-white pt-5 pb-5 p-8 rounded-xl">
-        <div className="flex justify-end">
+      <div className="bg-white pt-5 pb-5 p-8 rounded-xl h-60 flex items-center flex-col">
+        <div className="flex justify-end w-full">
           <button
             onClick={() => {
               setModalShow(false);
@@ -21,9 +21,10 @@ const Modal: React.FC<ModalProps> = ({ modalShow, setModalShow }) => {
           >
             <img src="./src/assets/x.svg" alt="X" />
           </button>
+          
         </div>
-        <div>
-          <h1 className="font-bold uppercase text-3xl">Niste pravilno uneli informacije</h1>
+        <div className="flex justify-center items-center p-8 h-full">
+          <h1 className="font-bold uppercase text-3xl cursor-default">Niste pravilno uneli informacije</h1>
         </div>
       </div>
     </div>

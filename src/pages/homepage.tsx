@@ -62,7 +62,7 @@ const Homepage = () => {
     setInputText("");
     setShowDatePicker(false);
   };
-  
+
   const handleUpdateName = (oldTaskName: string, newTaskName: string) => {
     const taskArrayIndex = taskArray.findIndex((task) => task.taskName === oldTaskName);
     if (taskArrayIndex != -1) {
@@ -71,10 +71,10 @@ const Homepage = () => {
       setTaskArray(tempTaskArray);
     }
   };
-  
+
   return (
     <>
-    <Modal modalShow={modalShow} setModalShow={setModalShow} />
+      <Modal modalShow={modalShow} setModalShow={setModalShow} />
       <div className="bg-purple-600 h-10">
         <div className=" max-w-4xl mx-auto text-3xl flex items-center align-middle justify-between">
           <h1 className="text-white font-bold">ToDo</h1>
@@ -100,7 +100,6 @@ const Homepage = () => {
               onChange={(event) => {
                 setInputText(event.target.value);
               }}
-              aria-rowspan={3}
               placeholder="Input text here.."
             ></textarea>
             <div className="flex justify-between">
@@ -118,7 +117,7 @@ const Homepage = () => {
                     } else handleAddButtonClick();
                   }
                 }}
-                className="bg-purple-600 rounded-lg text-white w-20 h-10 font-bold uppercase "
+                className="bg-purple-600 rounded-lg text-white w-32 h-10 font-bold uppercase transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover:bg-purple-400 duration-200 "
               >
                 Add
               </button>
@@ -126,18 +125,20 @@ const Homepage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white max-w-3xl mx-auto flex flex-col justify-evenly rounded-lg p-8 pb-20 align-text-top text-center">
-        <h1 className="text-2xl font-semibold mb-20"> Tasks</h1>
-        {taskArray.map((task) => (
-          <Task
-            key={task.taskName}
-            taskDay={task.taskDay}
-            taskMonth={task.taskMonth}
-            taskName={task.taskName}
-            onUpdateName={handleUpdateName}
-            handleRemoveTask={() => handleRemoveTask(task.taskName)}
-          />
-        ))}
+      <div className="bg-white max-w-3xl  mx-auto flex flex-col justify-evenly rounded-lg p-8 pb-20 align-text-top text-center">
+        <h1 className="text-2xl font-semibold mb-20 cursor-default"> Tasks</h1>
+        <div className="flex flex-col gap-8 max-h-72 overflow-y-auto">
+          {taskArray.map((task) => (
+            <Task
+              key={task.taskName}
+              taskDay={task.taskDay}
+              taskMonth={task.taskMonth}
+              taskName={task.taskName}
+              onUpdateName={handleUpdateName}
+              handleRemoveTask={() => handleRemoveTask(task.taskName)}
+            />
+          ))}
+        </div>
       </div>
     </>
   );
